@@ -1,0 +1,109 @@
+.landing {
+  font-family: "Segoe UI", sans-serif;
+  color: #333;
+  line-height: 1.6;
+}
+
+.hero {
+  background: linear-gradient(120deg, #5a3ea1, #9b59b6);
+  color: white;
+  text-align: center;
+  padding: 60px 20px;
+}
+
+.hero h1 {
+  font-size: 3rem;
+  margin-bottom: 10px;
+}
+
+.hero p {
+  font-size: 1.2rem;
+  margin-bottom: 30px;
+}
+
+.hero button {
+  background-color: white;
+  color: #5a3ea1;
+  padding: 12px 24px;
+  border: none;
+  border-radius: 30px;
+  font-weight: 700;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.hero button:hover {
+  background-color: #eee;
+}
+
+.services {
+  padding: 40px 20px;
+  text-align: center;
+}
+
+.services table {
+  margin: 20px auto;
+  border-collapse: collapse;
+  width: 90%;
+  max-width: 700px;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 0 15px rgba(0,0,0,0.1);
+}
+
+.services th,
+.services td {
+  padding: 16px;
+  background-color: white;
+  border: 1px solid #ddd;
+}
+
+.services th {
+  background-color: #5a3ea1;
+  color: white;
+}
+
+.carousel {
+  padding: 40px 20px;
+  text-align: center;
+}
+
+.carousel-container {
+  position: relative;
+  max-width: 600px;
+  margin: auto;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+}
+
+.carousel-container img {
+  width: 100%;
+  display: block;
+  height: 400px;
+  object-fit: cover;
+  transition: 0.4s ease-in-out;
+}
+
+.carousel-container .prev,
+.carousel-container .next {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 2rem;
+  background-color: rgba(0,0,0,0.4);
+  color: white;
+  border: none;
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
+  border-radius: 50%;
+}
+
+.carousel-container .prev {
+  left: 10px;
+}
+.carousel-container .next {
+  right: 10px;
+}

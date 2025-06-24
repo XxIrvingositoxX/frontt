@@ -1,0 +1,124 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background-color: #f4f4f9;
+  scroll-behavior: smooth;
+}
+
+
+/* Sección Hero - portada */
+.hero {
+  background: url('https://images.unsplash.com/photo-1558788353-f76d92427f16?auto=format&fit=crop&w=1470&q=80') no-repeat center center/cover;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  color: white;
+  padding: 0 20px;
+}
+
+.hero-content {
+  background-color: rgba(0, 0, 0, 0.5);
+  padding: 30px 40px;
+  border-radius: 15px;
+  max-width: 600px;
+}
+
+.hero h1 {
+  font-size: 3rem;
+  margin-bottom: 20px;
+  text-shadow: 0 0 10px rgba(0,0,0,0.7);
+}
+
+.hero p {
+  font-size: 1.3rem;
+  margin-bottom: 30px;
+  line-height: 1.4;
+  text-shadow: 0 0 8px rgba(0,0,0,0.5);
+}
+
+.hero button {
+  font-size: 1.2rem;
+  padding: 14px 30px;
+  background-color: #764ba2;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 700;
+  color: white;
+  transition: background-color 0.3s ease;
+}
+
+.hero button:hover {
+  background-color: #5b3674;
+}
+
+/* Contenedor del formulario */
+.container {
+  background: white;
+  padding: 40px 30px;
+  max-width: 480px;
+  margin: 60px auto 80px;
+  border-radius: 12px;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+}
+
+.container h2 {
+  text-align: center;
+  color: #4b2e83;
+  margin-bottom: 30px;
+}
+
+/* Formulario */
+form label {
+  display: block;
+  margin-bottom: 18px;
+  font-weight: 600;
+  color: #555;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="tel"],
+textarea {
+  width: 100%;
+  padding: 12px 14px;
+  margin-top: 6px;
+  border-radius: 6px;
+  border: 1.8px solid #ccc;
+  font-size: 1rem;
+  transition: border-color 0.3s;
+  resize: vertical;
+  font-family: inherit;
+}
+
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="tel"]:focus,
+textarea:focus {
+  outline: none;
+  border-color: #764ba2;
+  box-shadow: 0 0 8px rgba(118, 75, 162, 0.5);
+}
+
+button[type="submit"] {
+  width: 100%;
+  background-color: #764ba2;
+  color: white;
+  font-weight: 700;
+  font-size: 1.1rem;
+  padding: 14px 0;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  margin-top: 25px;
+  transition: background-color 0.3s ease;
+}
+
+button[type="submit"]:hover {
+  background-color: #5b3674;
+}
