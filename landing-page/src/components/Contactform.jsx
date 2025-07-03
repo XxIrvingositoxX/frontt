@@ -1,5 +1,6 @@
 import axios from "axios";
-import { useState } from "react";
+import { useState, useRef } from "react";
+import ReCAPTCHA from "react-google-recaptcha";
 
 export default function ContactForm({ onBack }) {
   const [formData, setFormData] = useState({
@@ -7,16 +8,24 @@ export default function ContactForm({ onBack }) {
     email: "",
     phone: "",
     message: "",
+    termsAccepted: false,
+    recaptchaToken: ""
   });
-
   const [success, setSuccess] = useState("");
   const [error, setError] = useState("");
+  const [captchaToken, setCaptchaToken] = useState(null);
+  const recaptchaRef = useRef();
 
   const handleChange = (e) => {
+    const { name, value, type, checked } = e.target;
     setFormData((prev) => ({
       ...prev,
-      [e.target.name]: e.target.value,
+      [name]: type === "checkbox" ? checked : value,
     }));
+  };
+
+  const onRecaptchaChange = (token) => {
+    setCaptchaToken(token);
   };
 
   const handleSubmit = async (e) => {
@@ -24,13 +33,28 @@ export default function ContactForm({ onBack }) {
     setSuccess("");
     setError("");
 
+    if (!captchaToken) {
+      setError("Por favor, verifica que no eres un robot.");
+      return;
+    }
+
+    if (!formData.termsAccepted) {
+      setError("Debes aceptar los términos y condiciones.");
+      return;
+    }
+
     try {
-      await axios.post("http://localhost:3025/api/v1/contact/createContact", formData);
+      const response = await axios.post("http://localhost:3025/api/v1/contact/createContact", {
+        ...formData,
+        recaptchaToken: captchaToken,
+      });
       setSuccess("¡Mensaje enviado con éxito!");
-      setFormData({ name: "", email: "", phone: "", message: "" });
+      setFormData({ name: "", email: "", phone: "", message: "", termsAccepted: false });
+      setCaptchaToken(null);
+      recaptchaRef.current.reset();
     } catch (err) {
-      console.error(err);
-      setError("Ocurrió un error al enviar el formulario.");
+      console.error("Error en handleSubmit:", err.response?.data); // Mostrar detalles del error
+      setError(err.response?.data?.error || "Ocurrió un error al enviar el formulario.");
     }
   };
 
@@ -144,6 +168,37 @@ export default function ContactForm({ onBack }) {
           />
         </label>
 
+        <label style={{ display: "block", marginBottom: 20, fontWeight: "600" }}>
+          <input
+            type="checkbox"
+            name="termsAccepted"
+            checked={formData.termsAccepted}
+            onChange={handleChange}
+            required
+            style={{ marginRight: 8 }}
+          />
+          Acepto los <a href="/terms" style={{ color: "#5a3ea1", textDecoration: "underline" }}>términos y condiciones</a>
+        </label>
+
+        <div style={{ marginBottom: 20 }}>
+          <ReCAPTCHA
+            ref={recaptchaRef}
+            sitekey="6LczaWsrAAAAAL99J-Pw0qoPigdMSXkyGkXAwRhc"
+            onChange={onRecaptchaChange}
+          />
+        </div>
+
+        {success && (
+          <p style={{ color: "green", marginBottom: 15, textAlign: "center" }}>
+            {success}
+          </p>
+        )}
+        {error && (
+          <p style={{ color: "red", marginBottom: 15, textAlign: "center" }}>
+            {error}
+          </p>
+        )}
+
         <button
           type="submit"
           style={{
@@ -156,7 +211,9 @@ export default function ContactForm({ onBack }) {
             border: "none",
             borderRadius: 8,
             cursor: "pointer",
+            opacity: !captchaToken || !formData.termsAccepted ? 0.6 : 1,
           }}
+          disabled={!captchaToken || !formData.termsAccepted}
         >
           Enviar
         </button>
